@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 class Stats{
@@ -13,7 +14,7 @@ class Stats{
 		telekinesis, // Affects Elemental Abilities and Unarmed Techniques
 		physique, // Affects Physical Abilities and Two-Handed Techniques
 		awareness, // Affects Quantum Abilities and One-Handed Techniques
-		telepathy, // Affects Atomic Abilities and Book Techniques
+		control, // Affects Atomic Abilities and Book Techniques
 		life; // Affects Spirit Abilities and Staff Techniques
 	// Dynamic Stats
 	int madness;
@@ -30,8 +31,8 @@ class Stats{
 		double get_base_phy_def();				
 		double get_base_awr_atk();
 		double get_base_awr_def();				
-		double get_base_tpy_atk();
-		double get_base_tpy_def();				
+		double get_base_ctr_atk();
+		double get_base_ctr_def();				
 		double get_base_lfe_atk();
 		double get_base_lfe_def();
 		
@@ -39,7 +40,7 @@ class Stats{
 		double getMP() {return madness;}
 };
 
-void Stats::_init_(lfc, vts, vty, end, nrg, lck, tks, phy, awr, tpy, lfe, mds){
+void Stats::_init_(lfc, vts, vty, end, nrg, lck, tks, phy, awr, ctr, lfe, mds){
 	lifeforce = lfc;
 	vitavis = vts;
 	vitality = vty;
@@ -49,7 +50,7 @@ void Stats::_init_(lfc, vts, vty, end, nrg, lck, tks, phy, awr, tpy, lfe, mds){
 	telekinesis = tks;
 	physique = phy;
 	awareness = awr;
-	telepathy = tpy;
+	control = ctr;
 	life = lfe;
 	madness = mds;
 }
@@ -65,12 +66,55 @@ double getBaseSP(){
 double getBaseVP(){
 	return (((vitavis * 2.5) + (energy * 2)) * (1 + getMadnessPercent()));
 }
+
 double get_base_atk() {
-	return (telekinesis + physique + awareness + telepathy + life) / 5;
+	return (telekinesis + physique + awareness + control + life) / 5;
 }
+
 double get_base_def() {
 	return (vitality + endurance + energy + luck);
 }
+
+double get_base_tks_atk(){
+	return get_base_atk() + telekenisis;
+}
+
+double get_base_tks_def(){
+	return get_base_def() + telekenisis;
+}
+				
+double get_base_phy_atk(){
+	return get_base_atk() + physique;
+}
+
+double get_base_phy_def(){
+	return get_base_def() + physique;
+}
+			
+double get_base_awr_atk(){
+	return get_base_atk() + awareness;
+}
+
+double get_base_awr_def(){
+	return get_base_def() + awareness;
+}
+			
+double get_base_ctr_atk(){
+	return get_base_atk() + control;
+}
+
+double get_base_ctr_def(){
+	return get_base_def() + control;
+}
+			
+double get_base_lfe_atk(){
+	return get_base_atk() + life;
+}
+
+double get_base_lfe_def(){
+	return get_base_def() + life;
+}
+
 double getMadnessPercent(){
 	return (1 - (madness / 100));
 }
